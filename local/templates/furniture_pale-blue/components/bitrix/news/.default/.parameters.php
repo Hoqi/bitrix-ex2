@@ -75,4 +75,11 @@ if ($arCurrentValues["USE_SHARE"] == "Y")
 	);
 }
 
+$arTemplateParameters["SPECIAL_DATE"] = array(
+	"NAME" => GetMessage("SPECIAL_DATE_BOX"),
+	"TYPE" => "CHECKBOX",
+	"VALUE" => "Y",
+	"DEFAULT" => "N",
+)
+
 ?>

@@ -12,7 +12,7 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-
+<?//var_dump($arParams)?>
 <?if($arParams["USE_RSS"]=="Y"):?>
 	<?
 	if(method_exists($APPLICATION, 'addheadstring'))
@@ -102,6 +102,7 @@ $this->setFrameMode(true);
 		"FILTER_NAME" => $arParams["FILTER_NAME"],
 		"HIDE_LINK_WHEN_NO_DETAIL" => $arParams["HIDE_LINK_WHEN_NO_DETAIL"],
 		"CHECK_DATES" => $arParams["CHECK_DATES"],
+		"SHOW_DATE" => $arParams["SPECIAL_DATE"],
 	),
 	$component
 );?>
