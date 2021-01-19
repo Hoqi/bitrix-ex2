@@ -8,6 +8,7 @@ IncludeTemplateLangFile(__FILE__);
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <?$APPLICATION->ShowHead();?>
 <link href="<?=SITE_TEMPLATE_PATH?>/common.css" type="text/css" rel="stylesheet" />
+<link rel="canonical" href="<?$APPLICATION->ShowProperty("canonical")?>"/>
 <link href="<?=SITE_TEMPLATE_PATH?>/colors.css" type="text/css" rel="stylesheet" />
 
 	<!--[if lte IE 6]>

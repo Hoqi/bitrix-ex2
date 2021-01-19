@@ -80,6 +80,11 @@ $arTemplateParameters["SPECIAL_DATE"] = array(
 	"TYPE" => "CHECKBOX",
 	"VALUE" => "Y",
 	"DEFAULT" => "N",
-)
+);
 
+$arTemplateParameters["CANONICAL"] =array(
+	"NAME" => GetMessage("CANONICAL_PROP"),
+	"TYPE" => "STRING",
+	"DEFAULT" => "",
+);
 ?>

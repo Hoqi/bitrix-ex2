@@ -90,6 +90,7 @@ $APPLICATION->SetTitle("Новости");
 		"YANDEX" => "N",
 		"COMPONENT_TEMPLATE" => ".default",
 		"SPECIAL_DATE" => "Y",
+		"CANONICAL" => "5",
 		"SEF_URL_TEMPLATES" => array(
 			"news" => "",
 			"section" => "",
