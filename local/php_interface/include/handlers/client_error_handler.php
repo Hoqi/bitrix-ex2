@@ -1,6 +1,7 @@
 <?
 AddEventHandler("main","OnEpilog",
 Array("ClientErrorHandler", "onEpilog"));
+CModule::IncludeModule("iblock");
 
 class ClientErrorHandler {
     function onEpilog(){
@@ -24,8 +25,8 @@ class ClientErrorHandler {
         $arGroupBy = false;
         $arNavStartParams = array("nTopCount" => false);
         $arSelect = array("ID","NAME","PROPERTY_TITLE","PROPERTY_DESCRIPTION");
-        $cib = new CIBlockElement;
-        $BDres = $cib->GetList(
+        //$cib = new CIBlockElement;
+        $BDres = CIBlockElement::GetList(
             $arSort,
             $arFilter,
             $arGroupBy,
