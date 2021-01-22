@@ -17,6 +17,16 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 $arParams["IBLOCK_PRODUCT_ID"] = intval($arParams["IBLOCK_PRODUCT_ID"]);
 $arParams["IBLOCK_NEWS_ID"] = intval($arParams["IBLOCK_NEWS_ID"]);
 
+$arButtons = CIBlock::GetPanelButtons($this->arParams["IBLOCK_PRODUCT_ID"]);
+$this->AddIncludeAreaIcon(
+	[
+		"TITLE"          => "Показать ИБ в админке",
+		"URL"            => $arButtons['submenu']['element_list']['ACTION_URL'],
+		"IN_PARAMS_MENU" => true,
+	]
+);
+
+
 if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arParams["PROP_NAME"]  && 
 	$this->StartResultCache(false, [$arParams["CACHE_GROUPS"]==="N"? false: $USER->GetGroups(),isset($_GET["F"])]))
 {
@@ -160,5 +170,7 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arP
 		$this->AbortResultCache();
 	 }
 }
+
+
 $APPLICATION->SetTitle("Элементов - ".$arResult["ELEM_COUNT"]);
 
