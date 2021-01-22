@@ -1,4 +1,6 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
+<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+CJSCore::Init(array("jquery"));
+?>
 <div class="news-detail">
 	<?if($arParams["DISPLAY_PICTURE"]!="N" && is_array($arResult["DETAIL_PICTURE"])):?>
 		<img class="detail_picture" src="<?=$arResult["DETAIL_PICTURE"]["SRC"]?>" width="<?=$arResult["DETAIL_PICTURE"]["WIDTH"]?>" height="<?=$arResult["DETAIL_PICTURE"]["HEIGHT"]?>" alt="<?=$arResult["NAME"]?>"  title="<?=$arResult["NAME"]?>" />
@@ -38,5 +40,21 @@
 		<?endif?>
 		<br />
 	<?endforeach;?>
+	<input type="hidden" id="urlJS" value="<?$this->GetFolder()?>">
+	<a id ="ajax-report" href="#">Пожаловаца</a>
+	<span id="user-text"></span>
+	<script>
+		$(document).ready(function() {
+			$('#ajax-report').click(function() {
+				const text = "Не нравится";
+				console.log(text);
+				$.get("/news/1/?BAD_NEWS=TRUE",function (data) {
+					$('#user-text').text("Ваше мнение очень важно для нас");
+				}).fail(err => {
+					$('#user-text').text("Неудачная попытка");
+				})
+			})
+		})
+ </script>
 	</div>
 </div>
