@@ -103,10 +103,31 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arP
 	$arProducts = [];
 	while($element = $resIBlockProducts->GetNext()){
 		if (in_array($element["IBLOCK_SECTION_ID"],$sectionIdColumn)){
+			/*Эрмитаж*/
+			$arButtons = CIBlock::GetPanelButtons(
+				$element["IBLOCK_ID"],
+				$element["ID"],
+				0,
+				["SECTION_BUTTONS" => false, "SESSID" => false],
+			);
+			$element["EDIT_LINK"] = $arButtons["edit"]["edit_element"]["ACTION_URL"];
+			$element["DELETE_LINK"] = $arButtons["edit"]["delete_element"]["ACTION_URL"];
+			/*!Эрмитаж*/
 			$arProducts[] = $element;
 		}
 	}
 	/* FINAL */
+	/*Эрмитаж*/
+	if($APPLICATION->GetShowIncludeAreas()){
+		$arButtons = CIBlock::GetPanelButtons(
+			$this->arParams["IBLOCK_PRODUCT_ID"],
+			0,
+			0,
+			["SECTION_BUTTONS" => false],
+		);
+		$this->addIncludeAreaIcons(CIBlock::GetComponentMenu($APPLICATION->GetPublicShowMode(),$arButtons));
+	}
+	/*!Эрмитаж*/
 	 if (count($arProduct != 0) && count($arNews != 0)){
 		$arResult["ITEMS"]= [];
 		$productCount = 0;

@@ -18,12 +18,30 @@ $frame = $this->createFrame()->begin('');
 	<ul> 
 		<b>Каталог: </b>
 		<ul>
+		<?$idCounter = 0?>
 			<?foreach($arResult["ITEMS"] as $arItem ): ?>
 				<li>
 					<b><?=$arItem["TITLE"]?></b> - <?=$arItem["DATE"]?> (<?foreach($arItem["SECTIONS"] as $section): ?> <?=$section?> ,<?endforeach;?>)
 						<ul>
 							<?foreach($arItem["PRODUCTS"] as $product): ?>
-								<li><?=$product["NAME"]?> - <?=$product["PROPERTY_PRICE_VALUE"]?> - <?=$product["PROPERTY_MATERIAL_VALUE"]?> - <?=$product["PROPERTY_ARTNUMBER_VALUE"]?> (<?=$product["DETAIL_PAGE_URL"]?>) </li>
+								<?
+								$uuid = ++$idCounter;
+								$this->addEditAction($uuid,$product["EDIT_LINK"],
+									CIBlock::GetArrayById($product["IBLOCK_ID"],"ELEMENT_EDIT"));
+								$this->addDeleteAction($uuid,$product["DELETE_LINK"],
+									CIBlock::GetArrayById($product["IBLOCK_ID"],"ELEMENT_DELETE"),
+									["CONFIRM" => "A U SURE?"],
+								);
+								?>
+								<div id="<?= $this->GetEditAreaId($uuid); ?>">
+									<li>
+									<?=$product["NAME"]?> - 
+									<?=$product["PROPERTY_PRICE_VALUE"]?> - 
+									<?=$product["PROPERTY_MATERIAL_VALUE"]?> - 
+									<?=$product["PROPERTY_ARTNUMBER_VALUE"]?> 
+									(<?=$product["DETAIL_PAGE_URL"]?>)
+									</li>
+								</div>
 							<?endforeach;?>
 						</ul>
 				</li>
