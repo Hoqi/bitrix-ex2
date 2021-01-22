@@ -76,10 +76,14 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arP
 		"DETAIL_PAGE_URL",
 	);
 
+	$arSort = array(
+		"NAME" => "ASC",
+		"SORT" => "ASC",
+	);
 	$arFilter = array(
 		"IBLOCK_ID" => $arParams["IBLOCK_PRODUCT_ID"],
 	);
-	$resIBlockProducts = CIBlockElement::GetList(false,$arFilter,false,false,$arSelect);
+	$resIBlockProducts = CIBlockElement::GetList($arSort,$arFilter,false,false,$arSelect);
 	$resIBlockProducts->SetUrlTemplates($arParams["TEMPLATE_DETAIL_URL"]);
 	$arProducts = [];
 	while($element = $resIBlockProducts->GetNext()){
