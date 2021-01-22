@@ -17,7 +17,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 $arParams["IBLOCK_PRODUCT_ID"] = intval($arParams["IBLOCK_PRODUCT_ID"]);
 $arParams["IBLOCK_NEWS_ID"] = intval($arParams["IBLOCK_NEWS_ID"]);
 
-if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] && $arParams["PROP_NAME"]  && $this->StartResultCache(false, ($arParams["CACHE_GROUPS"]==="N"? false: $USER->GetGroups())))
+if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arParams["PROP_NAME"]  && $this->StartResultCache(false, ($arParams["CACHE_GROUPS"]==="N"? false: $USER->GetGroups())))
 {
 	if(!CModule::IncludeModule("iblock"))
 	{
@@ -31,13 +31,13 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] && $arParam
 		"ID",
 		"IBLOCK_ID",
 		"NAME",
-		"UF_NEWS_LINK",
+		$arParams["PROP_NAME"],
 	);
 	//WHERE
 	$arFilter = array(
 		"IBLOCK_ID" => $arParams["IBLOCK_PRODUCT_ID"],
 		"ACTIVE"=>"Y",
-		"!UF_NEWS_LINK" => false,
+		"!". $arParams["PROP_NAME"] => false,
 	);
 	
 	//EXECUTE
@@ -96,7 +96,7 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] && $arParam
 			$resElem["SECTIONS"] = [];
 			$sectionsID = [];
 	 		foreach ($arSections as $section){
-	 			if (in_array($news["ID"], $section["UF_NEWS_LINK"])){
+	 			if (in_array($news["ID"], $section[$arParams["PROP_NAME"]])){
 					 $resElem["SECTIONS"][] = $section["NAME"];
 					 $sectionsID[] = $section["ID"];
 	 			}

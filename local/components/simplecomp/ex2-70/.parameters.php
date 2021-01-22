@@ -20,6 +20,7 @@ $arComponentParameters = array(
 			"TYPE" => "STRING",
 		),
 		"CACHE_TIME"  =>  Array("DEFAULT"=>180),
+		
 	),
 );
 ?>
