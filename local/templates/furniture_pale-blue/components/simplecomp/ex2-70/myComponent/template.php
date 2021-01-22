@@ -12,19 +12,22 @@
 /** @var CBitrixComponent $component */
 $frame = $this->createFrame()->begin('');
 ?>
-<?if ($arResult["ITEMS"]): ?>
+<?if (isset($arResult["ITEMS"])): ?>
 <div class="my-component">
 	<ul> 
-	<b>Каталог</b>
-	<?foreach($arResult["ITEMS"] as $arItem ): ?>
-	<li> <b><?=$arItem["TITLE"]?></b> - <?=$arItem["DATE"]?> (<?foreach($arItem["SECTIONS"] as $section): ?> <?=$section?> ,<?endforeach;?>)
+		<b>Каталог: </b>
 		<ul>
-		<?foreach($arItem["PRODUCTS"] as $product): ?>
-		<li><?=$product["NAME"]?> - <?=$product["PROPERTY_PRICE_VALUE"]?> - <?=$product["PROPERTY_MATERIAL_VALUE"]?> - <?=$product["PROPERTY_ARTNUMBER_VALUE"]?> </li>
-		<?endforeach;?>
+			<?foreach($arResult["ITEMS"] as $arItem ): ?>
+				<li>
+					<b><?=$arItem["TITLE"]?></b> - <?=$arItem["DATE"]?> (<?foreach($arItem["SECTIONS"] as $section): ?> <?=$section?> ,<?endforeach;?>)
+						<ul>
+							<?foreach($arItem["PRODUCTS"] as $product): ?>
+								<li><?=$product["NAME"]?> - <?=$product["PROPERTY_PRICE_VALUE"]?> - <?=$product["PROPERTY_MATERIAL_VALUE"]?> - <?=$product["PROPERTY_ARTNUMBER_VALUE"]?> </li>
+							<?endforeach;?>
+						</ul>
+				</li>
+			<?endforeach;?>
 		</ul>
-	</li>
-	<?endforeach;?>
 	</ul>
 </div>
 <?endif;?>

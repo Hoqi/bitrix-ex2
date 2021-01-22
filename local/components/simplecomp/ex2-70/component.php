@@ -85,10 +85,10 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] && $arParam
 			$arProducts[] = $element;
 		}
 	}
-	//var_dump($arProducts);
 	/* FINAL */
 	 if (count($arProduct != 0) && count($arNews != 0)){
 		$arResult["ITEMS"]= [];
+		$productCount = 0;
 	 	foreach($arNews as $news){
 	 		$resElem = [];
 	 		$resElem["TITLE"] = $news["NAME"];
@@ -98,21 +98,19 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] && $arParam
 	 		foreach ($arSections as $section){
 	 			if (in_array($news["ID"], $section["UF_NEWS_LINK"])){
 					 $resElem["SECTIONS"][] = $section["NAME"];
-					 //var_dump($section["ID"]);
 					 $sectionsID[] = $section["ID"];
 	 			}
 			 }
-			//var_dump($sectionsID);
 	 		$resElem["PRODUCTS"] = [];
 	 		foreach ($arProducts as $product) {
 	 			if (in_array($product["IBLOCK_SECTION_ID"],$sectionsID)){
-	 				$resElem["PRODUCTS"][] = $product;
+					 $resElem["PRODUCTS"][] = $product;
+					 $productCount++;
 	 			}
 			 }
-			//var_dump($resElem);
 			$arResult["ITEMS"][] = $resElem;
 		 }
-		 //var_dump($arParams["DATA"]);
+		 $APPLICATION->SetTitle("Элементов - $productCount");
 		 $this->SetResultCacheKeys(array());
 		 $this->IncludeComponentTemplate();
 	 }
