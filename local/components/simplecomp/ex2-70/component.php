@@ -17,7 +17,8 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 $arParams["IBLOCK_PRODUCT_ID"] = intval($arParams["IBLOCK_PRODUCT_ID"]);
 $arParams["IBLOCK_NEWS_ID"] = intval($arParams["IBLOCK_NEWS_ID"]);
 
-if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arParams["PROP_NAME"]  && $this->StartResultCache(false, ($arParams["CACHE_GROUPS"]==="N"? false: $USER->GetGroups())))
+if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arParams["PROP_NAME"]  && 
+	$this->StartResultCache(false, [$arParams["CACHE_GROUPS"]==="N"? false: $USER->GetGroups(),isset($_GET["F"])]))
 {
 	if(!CModule::IncludeModule("iblock"))
 	{
@@ -83,6 +84,20 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arP
 	$arFilter = array(
 		"IBLOCK_ID" => $arParams["IBLOCK_PRODUCT_ID"],
 	);
+	if (isset($_GET["F"])){
+		$arFilter[] = array(
+			"LOGIC" => "OR",
+			array(
+				"<=PROPERTY_PRICE" => 1700,
+				"=PROPERTY_MATERIAL" => "Дерево, ткань",
+			),
+			array(
+				"<PROPERTY_PRICE" => 1500,
+				"=PROPERTY_MATERIAL" => "Металл, пластик",
+			),
+		);
+		$this->AbortResultCache();
+	}
 	$resIBlockProducts = CIBlockElement::GetList($arSort,$arFilter,false,false,$arSelect);
 	$resIBlockProducts->SetUrlTemplates($arParams["TEMPLATE_DETAIL_URL"]);
 	$arProducts = [];
@@ -116,12 +131,13 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arP
 			 }
 			$arResult["ITEMS"][] = $resElem;
 		 }
-		 $APPLICATION->SetTitle("Элементов - $productCount");
-		 $this->SetResultCacheKeys(array());
-		 $this->IncludeComponentTemplate();
+		$arResult["ELEM_COUNT"] = $productCount;
+		$this->SetResultCacheKeys(array("ELEM_COUNT","ITEMS"));
+		$this->IncludeComponentTemplate();
 	 }
 	 else {
 		$this->AbortResultCache();
 	 }
 }
-?>
+$APPLICATION->SetTitle("Элементов - ".$arResult["ELEM_COUNT"]);
+

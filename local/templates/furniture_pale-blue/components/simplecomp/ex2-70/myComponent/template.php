@@ -14,6 +14,7 @@ $frame = $this->createFrame()->begin('');
 ?>
 <?if (isset($arResult["ITEMS"])): ?>
 <div class="my-component">
+<b>Фильтр </b> <a href="<?=$APPLICATION->GetCurDir()?>?F=Y"><?=$APPLICATION->GetCurDir()?>?F=Y</a>
 	<ul> 
 		<b>Каталог: </b>
 		<ul>
