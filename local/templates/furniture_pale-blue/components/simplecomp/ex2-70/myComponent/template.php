@@ -22,7 +22,7 @@ $frame = $this->createFrame()->begin('');
 					<b><?=$arItem["TITLE"]?></b> - <?=$arItem["DATE"]?> (<?foreach($arItem["SECTIONS"] as $section): ?> <?=$section?> ,<?endforeach;?>)
 						<ul>
 							<?foreach($arItem["PRODUCTS"] as $product): ?>
-								<li><?=$product["NAME"]?> - <?=$product["PROPERTY_PRICE_VALUE"]?> - <?=$product["PROPERTY_MATERIAL_VALUE"]?> - <?=$product["PROPERTY_ARTNUMBER_VALUE"]?> </li>
+								<li><?=$product["NAME"]?> - <?=$product["PROPERTY_PRICE_VALUE"]?> - <?=$product["PROPERTY_MATERIAL_VALUE"]?> - <?=$product["PROPERTY_ARTNUMBER_VALUE"]?> (<?=$product["DETAIL_PAGE_URL"]?>) </li>
 							<?endforeach;?>
 						</ul>
 				</li>

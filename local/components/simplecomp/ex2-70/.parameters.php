@@ -20,7 +20,12 @@ $arComponentParameters = array(
 			"TYPE" => "STRING",
 		),
 		"CACHE_TIME"  =>  Array("DEFAULT"=>180),
-		
+		"TEMPLATE_DETAIL_URL" => array(
+			"PARENT" => "BASE",
+			"NAME" => GetMessage("TEMPLATE_URL"),
+			"DEFAULT" => "catalog_exam/#SECTION_ID#/#ELEMENT_CODE#",
+			"TYPE" => "STRING",
+		)
 	),
 );
 ?>
