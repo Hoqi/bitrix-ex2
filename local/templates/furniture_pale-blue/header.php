@@ -63,6 +63,7 @@ $APPLICATION->IncludeFile(
 	"ACTIVE_COMPONENT" => "Y"
 	)
 );?>
+
 				</div>
 			</div>
 			
@@ -137,7 +138,14 @@ $APPLICATION->IncludeComponent("bitrix:search.form", "flat", Array(
 ?>
 					</div>
 				</div>
-
+                <div style="color:red; margin: 34px 15px 35px 15px" id="tmp">
+                    <div>
+                        <?= $APPLICATION->ShowViewContent('minPrice'); ?>
+                    </div>
+                    <div>
+                        <?= $APPLICATION->ShowViewContent('maxPrice'); ?>
+                    </div>
+                </div>
 				<div class="information-block">
 					<div class="top"></div>
 					<div class="information-block-inner">

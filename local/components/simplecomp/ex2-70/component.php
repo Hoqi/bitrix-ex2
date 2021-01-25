@@ -108,11 +108,21 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arP
 		);
 		$this->AbortResultCache();
 	}
+	$arResult["MIN_PRICE"] = 10000;
+	$arResult["MAX_PRICE"] = -100;
 	$resIBlockProducts = CIBlockElement::GetList($arSort,$arFilter,false,false,$arSelect);
 	$resIBlockProducts->SetUrlTemplates($arParams["TEMPLATE_DETAIL_URL"]);
 	$arProducts = [];
 	while($element = $resIBlockProducts->GetNext()){
 		if (in_array($element["IBLOCK_SECTION_ID"],$sectionIdColumn)){
+			/* Отбор больших и маленьких */
+			if ($element["PROPERTY_PRICE_VALUE"] < $arResult["MIN_PRICE"]){
+				$arResult["MIN_PRICE"] = $element["PROPERTY_PRICE_VALUE"];
+			}
+			if ($element["PROPERTY_PRICE_VALUE"] > $arResult["MAX_PRICE"]){
+				$arResult["MAX_PRICE"] = $element["PROPERTY_PRICE_VALUE"];
+			}
+			/*!Отбор больших и маленьких */
 			/*Эрмитаж*/
 			$arButtons = CIBlock::GetPanelButtons(
 				$element["IBLOCK_ID"],
@@ -163,7 +173,7 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arP
 			$arResult["ITEMS"][] = $resElem;
 		 }
 		$arResult["ELEM_COUNT"] = $productCount;
-		$this->SetResultCacheKeys(array("ELEM_COUNT","ITEMS"));
+		$this->SetResultCacheKeys(array("ELEM_COUNT","ITEMS","MIN_PRICE","MAX_PRICE"));
 		$this->IncludeComponentTemplate();
 	 }
 	 else {
@@ -174,3 +184,11 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arP
 
 $APPLICATION->SetTitle("Элементов - ".$arResult["ELEM_COUNT"]);
 
+$APPLICATION->AddViewContent(
+	"minPrice",
+	"Минимальная цена: " . $arResult["MIN_PRICE"]
+);
+$APPLICATION->AddViewContent(
+	"maxPrice",
+	"Максимальная цена: " . $arResult["MAX_PRICE"]
+);
