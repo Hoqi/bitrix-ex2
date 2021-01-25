@@ -38,7 +38,7 @@ $this->AddIncludeAreaIcon(
 
 
 if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arParams["PROP_NAME"]  && 
-	$this->StartResultCache(false, [$arParams["CACHE_GROUPS"]==="N"? false: $USER->GetGroups(),isset($_GET["F"])]))
+	$this->StartResultCache(false, [$arParams["CACHE_GROUPS"]==="N"? false: $USER->GetGroups(),isset($_GET["F"]),CDBResult::GetNavParams($arNav)]))
 {
 	if(!CModule::IncludeModule("iblock"))
 	{
