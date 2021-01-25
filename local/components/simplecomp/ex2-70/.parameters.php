@@ -19,7 +19,16 @@ $arComponentParameters = array(
 			"NAME" => GetMessage("PROP_NAME"),
 			"TYPE" => "STRING",
 		),
+
+		"ELEMENTS_PER_PAGE" => array(
+            "PARENT"  => "BASE",
+            "NAME"    => GetMessage("ELEMENTS_ON_PAGE"),
+            "TYPE"    => "STRING",
+            "DEFAULT" => "2",
+		),
+		
 		"CACHE_TIME"  =>  Array("DEFAULT"=>180),
+
 		"TEMPLATE_DETAIL_URL" => array(
 			"PARENT" => "BASE",
 			"NAME" => GetMessage("TEMPLATE_URL"),
@@ -27,5 +36,14 @@ $arComponentParameters = array(
 			"TYPE" => "STRING",
 		)
 	),
+);
+
+CIBlockParameters::AddPagerSettings(
+    $arComponentParameters,
+    GetMessage("NAVIGATION_TITLE"), 
+    true, 
+    true, 
+    false, 
+    false 
 );
 ?>

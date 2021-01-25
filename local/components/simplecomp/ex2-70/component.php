@@ -17,6 +17,16 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 $arParams["IBLOCK_PRODUCT_ID"] = intval($arParams["IBLOCK_PRODUCT_ID"]);
 $arParams["IBLOCK_NEWS_ID"] = intval($arParams["IBLOCK_NEWS_ID"]);
 
+$arParams['ELEMENTS_PER_PAGE'] = (int)$arParams['ELEMENTS_PER_PAGE'];
+$arParams["PAGER_TITLE"] = trim($arParams["PAGER_TITLE"]);
+$arParams["PAGER_SHOW_ALL"] = $arParams["PAGER_SHOW_ALL"] == "Y";
+
+$arNav = array(
+    "nPageSize" => $arParams['ELEMENTS_PER_PAGE'],
+    "bShowAll"  => $arParams["PAGER_SHOW_ALL"],
+);
+
+
 $arButtons = CIBlock::GetPanelButtons($this->arParams["IBLOCK_PRODUCT_ID"]);
 $this->AddIncludeAreaIcon(
 	[
@@ -68,9 +78,18 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arP
 
 	$arFilter = array(
 		"IBLOCK_ID" => $arParams["IBLOCK_NEWS_ID"],
+		"ACTIVE" => "Y",
 	);
 
-	$resIBlockNews = CIBlockElement::GetList(false,$arFilter,false,false,$arSelect);
+	$resIBlockNews = CIBlockElement::GetList(false,$arFilter,false,$arNav,$arSelect);
+
+	$arResult["NAV_STRING"] = $resIBlockNews->GetPageNavStringEx(
+		$navComponentObject,
+		$arParams["PAGER_TITLE"],
+		$arParams["PAGER_TEMPLATE"],
+		$arParams["PAGER_SHOW_ALWAYS"]
+	);
+
 	$arNews = [];
 	while ($element = $resIBlockNews->GetNext()){
 		$arNews[] = $element;

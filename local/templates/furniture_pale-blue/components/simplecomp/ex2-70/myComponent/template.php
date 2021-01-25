@@ -49,6 +49,9 @@ $frame = $this->createFrame()->begin('');
 		</ul>
 	</ul>
 </div>
+<br>---
+<p><b><?= "Вас поситила навигация" ?></b></p>
+<? echo $arResult["NAV_STRING"] ?>
 <?endif;?>
 <?
 $frame->end();

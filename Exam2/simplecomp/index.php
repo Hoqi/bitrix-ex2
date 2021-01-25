@@ -11,7 +11,16 @@ $APPLICATION->SetTitle("Простой компонент");
 		"IBLOCK_PRODUCT_ID" => "2",
 		"PROP_NAME" => "UF_NEWS_LINK",
 		"COMPONENT_TEMPLATE" => "myComponent",
-		"TEMPLATE_DETAIL_URL" => "catalog_exam/#SECTION_ID#/#ELEMENT_CODE#"
+		"TEMPLATE_DETAIL_URL" => "catalog_exam/#SECTION_ID#/#ELEMENT_CODE#",
+		"ELEMENTS_PER_PAGE" => "1",
+		"PAGER_TEMPLATE" => ".default",
+		"DISPLAY_TOP_PAGER" => "N",
+		"DISPLAY_BOTTOM_PAGER" => "Y",
+		"PAGER_TITLE" => "Новости?",
+		"PAGER_SHOW_ALWAYS" => "N",
+		"PAGER_DESC_NUMBERING" => "Y",
+		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+		"PAGER_SHOW_ALL" => "Y"
 	),
 	false
 );?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
