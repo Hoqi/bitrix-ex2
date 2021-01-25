@@ -9,7 +9,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 /** @global CDatabase $DB */
 /** @global CUser $USER */
 /** @global CMain $APPLICATION */
-
+global $CACHE_MANAGER;
 
 /*************************************************************************
 	Processing of received parameters
@@ -46,6 +46,12 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arP
 		ShowError(GetMessage("IBLOCK_MODULE_NOT_INSTALLED"));
 		return;
 	}
+	//cache tag
+	if (defined('BX_COMP_MANAGED_CACHE')) {
+        $CACHE_MANAGER->RegisterTag("iblock_id_" . SERVICES_IBLOCK_ID);
+    }
+
+
 	/* SECTIONS SELECT */
 	//SELECT
 	$arSelect = array(
