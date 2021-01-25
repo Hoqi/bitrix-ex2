@@ -25,6 +25,11 @@ $arTemplateParameters = array(
 		"DEFAULT" =>"N",
 		"REFRESH"=> "Y",
 	),
+	"REPORT_AJAX" => array(
+		"NAME" => GetMessage("REPORT_AJAX"),
+		"TYPE" => "CHECKBOX",
+		"DEFAULT" => "N",
+	),
 );
 
 if ($arCurrentValues["USE_SHARE"] == "Y")
@@ -87,4 +92,5 @@ $arTemplateParameters["CANONICAL"] =array(
 	"TYPE" => "STRING",
 	"DEFAULT" => "",
 );
+
 ?>

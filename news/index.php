@@ -91,6 +91,7 @@ $APPLICATION->SetTitle("Новости");
 		"COMPONENT_TEMPLATE" => ".default",
 		"SPECIAL_DATE" => "Y",
 		"CANONICAL" => "5",
+		"REPORT_AJAX" => "N",
 		"SEF_URL_TEMPLATES" => array(
 			"news" => "",
 			"section" => "",

@@ -3,6 +3,7 @@ CJSCore::Init(array("jquery"));
 ?>
 <div class="news-detail">
 	<?if($arParams["DISPLAY_PICTURE"]!="N" && is_array($arResult["DETAIL_PICTURE"])):?>
+	<?saadsad?>
 		<img class="detail_picture" src="<?=$arResult["DETAIL_PICTURE"]["SRC"]?>" width="<?=$arResult["DETAIL_PICTURE"]["WIDTH"]?>" height="<?=$arResult["DETAIL_PICTURE"]["HEIGHT"]?>" alt="<?=$arResult["NAME"]?>"  title="<?=$arResult["NAME"]?>" />
 	<?endif?>
 	<?if($arParams["DISPLAY_DATE"]!="N" && $arResult["DISPLAY_ACTIVE_FROM"]):?>
@@ -10,6 +11,7 @@ CJSCore::Init(array("jquery"));
 	<?endif;?>
 	<?if($arParams["DISPLAY_NAME"]!="N" && $arResult["NAME"]):?>
 		<h3><?=$arResult["NAME"]?></h3>
+		<?require_once("report.php");?>
 	<?endif;?>
 	<div class="news-detail">
 	<?if($arParams["DISPLAY_PREVIEW_TEXT"]!="N" && $arResult["FIELDS"]["PREVIEW_TEXT"]):?>
@@ -40,21 +42,20 @@ CJSCore::Init(array("jquery"));
 		<?endif?>
 		<br />
 	<?endforeach;?>
-	<input type="hidden" id="urlJS" value="<?$this->GetFolder()?>">
-	<a id ="ajax-report" href="#">Пожаловаца</a>
-	<span id="user-text"></span>
+	<?if ($arParams["AJAX_REPORT"] == "Y"):?>
 	<script>
 		$(document).ready(function() {
-			$('#ajax-report').click(function() {
-				const text = "Не нравится";
-				console.log(text);
-				$.get("/news/1/?BAD_NEWS=TRUE",function (data) {
-					$('#user-text').text("Ваше мнение очень важно для нас");
+			
+			$('#report').click(function() {
+				$.get($('#report').attr("href"),function (data) {
+					$('#user-text').text(`Спасибо, ваше мнение учтено : №${data}`);
+					console.log(data);
 				}).fail(err => {
 					$('#user-text').text("Неудачная попытка");
 				})
 			})
 		})
- </script>
+ 	</script>
+	<?endif;?>
 	</div>
 </div>
