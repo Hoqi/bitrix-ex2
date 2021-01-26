@@ -20,4 +20,7 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handle
     require_once($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handlers/global_menu_handler.php');
 }
 
+if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/agents/users_count_agent.php')){
+    require_once($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/agents/users_count_agent.php');
+}
 ?>
