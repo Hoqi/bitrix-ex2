@@ -123,6 +123,15 @@ $APPLICATION->IncludeFile(
 	Array("MODE"=>"html")
 );
 ?>
+<?$APPLICATION->IncludeComponent(
+	"bitrix:main.site.selector",
+	"multi_lang",
+	Array(
+		"CACHE_TIME" => "3600",
+		"CACHE_TYPE" => "A",
+		"SITE_LIST" => ""
+	)
+);?>
 					</div>
 				</div>
 				
