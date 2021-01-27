@@ -58,10 +58,12 @@ $APPLICATION->SetTitle("Furniture");
 		"SORT_ORDER2" => "ASC",
 		"STRICT_SECTION_CHECK" => "N"
 	)
-);?><?$APPLICATION->IncludeComponent("bitrix:main.site.selector", "multi_lang", Array(
-	"CACHE_TIME" => "3600",	// Cache time (sec.)
-		"CACHE_TYPE" => "A",	// Cache type
-		"SITE_LIST" => "",	// Sites List
-	),
-	false
+);?><?$APPLICATION->IncludeComponent(
+	"bitrix:main.site.selector",
+	"multi_lang",
+	Array(
+		"CACHE_TIME" => "3600",
+		"CACHE_TYPE" => "A",
+		"SITE_LIST" => ""
+	)
 );?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

@@ -1,6 +1,14 @@
 <?php
 $arUrlRewrite=array (
-  0 => 
+  4 => 
+  array (
+    'CONDITION' => '#^/Exam2/complex-component/#',
+    'RULE' => '',
+    'ID' => 'complexcomp.exam-materials',
+    'PATH' => '/Exam2/complex-component/index.php',
+    'SORT' => 100,
+  ),
+  2 => 
   array (
     'CONDITION' => '#^/services/#',
     'RULE' => '',
@@ -8,7 +16,7 @@ $arUrlRewrite=array (
     'PATH' => '/services/index.php',
     'SORT' => 100,
   ),
-  1 => 
+  3 => 
   array (
     'CONDITION' => '#^/products/#',
     'RULE' => '',
@@ -16,7 +24,7 @@ $arUrlRewrite=array (
     'PATH' => '/products/index.php',
     'SORT' => 100,
   ),
-  2 => 
+  0 => 
   array (
     'CONDITION' => '#^/news/#',
     'RULE' => '',
