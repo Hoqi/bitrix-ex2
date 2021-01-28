@@ -1,10 +1,13 @@
 <?
-AddEventHandler("main","OnEpilog",
-Array("ClientErrorHandler", "onEpilog"));
+AddEventHandler("main","OnEpilog", Array(
+    "ClientErrorHandler", 
+    "onEpilog"));
 CModule::IncludeModule("iblock");
 
-class ClientErrorHandler {
-    function onEpilog(){
+class ClientErrorHandler 
+{
+    function onEpilog()
+    {
         global $APPLICATION;      
         if (defined("ERROR_404") && ERROR_404 === "Y") {          
             CEventLog::Add(array(
@@ -23,9 +26,8 @@ class ClientErrorHandler {
             "NAME" => $page,
         );
         $arGroupBy = false;
-        $arNavStartParams = array("nTopCount" => false);
+        $arNavStartParams = array("nTopCount" => 1);
         $arSelect = array("ID","NAME","PROPERTY_TITLE","PROPERTY_DESCRIPTION");
-        //$cib = new CIBlockElement;
         $BDres = CIBlockElement::GetList(
             $arSort,
             $arFilter,
@@ -33,7 +35,7 @@ class ClientErrorHandler {
             $arNavStartParams,
             $arSelect,
         );
-        if ($res = $BDres->GetNext()){
+        if ($res = $BDres->GetNext()) {
             $APPLICATION->SetPageProperty('title',$res["PROPERTY_TITLE_VALUE"]);
             $APPLICATION->SetPageProperty('description',$res["PROPERTY_DESCRIPTION_VALUE"]);
         }

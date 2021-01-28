@@ -1,10 +1,11 @@
 <?
-AddEventHandler('main',"OnBeforeEventAdd"
- , Array("MailHandler", "onMailAdd"));
-class MailHandler {
-
-
-    function onMailAdd(&$event, &$lid, &$arFields){
+AddEventHandler('main',"OnBeforeEventAdd", Array(
+    "MailHandler", 
+    "onMailAdd"));
+class MailHandler 
+{
+    function onMailAdd(&$event, &$lid, &$arFields)
+    {
         if ($event == 'FEEDBACK_FORM'){
             global $USER;
             var_dump($event);
@@ -13,8 +14,7 @@ class MailHandler {
             if (!$USER->IsAuthorized()){
                 $name = $arFields['AUTHOR'];
                 $arFields['AUTHOR'] = "Пользователь не авторизован, данные из формы: $name";
-            }
-            else {
+            } else {
                 $name = $arFields['AUTHOR'];
                 $login = $USER->GetLogin();
                 $id = $USER->GetId();
