@@ -1,15 +1,14 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 <?
-//var_dump($arParams);
-if (isset($arParams["CANONICAL"])){
+if (isset($arParams["CANONICAL_IBLOCK_ID"])){
     $arSort = false;
     $arFilter = array(
-        "IBLOCK_ID" => $arParams["CANONICAL"],
+        "IBLOCK_ID" => $arParams["CANONICAL_IBLOCK_ID"],
         "ACTIVE" => "Y",
         "PROPERTY_news" => $arResult["ID"],
     );
     $arGroupBy = false;
-    $arNavStartParams = array("nTopCount" => false);
+    $arNavStartParams = array("nTopCount" => 1);
     $arSelect = array("ID","NAME");
 
     $BDres = CIBlockElement::GetList(
@@ -19,12 +18,8 @@ if (isset($arParams["CANONICAL"])){
         $arNavStartParams,
         $arSelect,
     );
-    $tmp;
-    while ($elem = $BDres->GetNextElement()){
-        $tmp = $elem;
-    }
-    if (count($tmp) == 1){
-        $arResult["CANONICAL"] = $tmp;
+    if ($elem = $BDres->GetNextElement()){
+        $arResult["CANONICAL"] = $elem;
         $comp = $this->__component;
         $comp->SetResultCacheKeys(array("CANONICAL"));
     }

@@ -87,7 +87,7 @@ $arTemplateParameters["SPECIAL_DATE"] = array(
 	"DEFAULT" => "N",
 );
 
-$arTemplateParameters["CANONICAL"] =array(
+$arTemplateParameters["CANONICAL_IBLOCK_ID"] =array(
 	"NAME" => GetMessage("CANONICAL_PROP"),
 	"TYPE" => "STRING",
 	"DEFAULT" => "",
