@@ -3,21 +3,21 @@ if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/const.
     require_once($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/const.php');
 }
 
-if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handlers/event_handler.php')){
-    require_once($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handlers/event_handler.php');
+if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handlers/CIBlockHandler.php')){
+    require_once($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handlers/CIBlockHandler.php');
 }
 
 
-if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handlers/client_error_handler.php')){
-    require_once($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handlers/client_error_handler.php');
+if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handlers/ClientErrorHandler.php')){
+    require_once($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handlers/ClientErrorHandler.php');
 }
 
-if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handlers/mail_handler.php')){
-    require_once($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handlers/mail_handler.php');
+if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handlers/MailHandler.php')){
+    require_once($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handlers/MailHandler.php');
 }
 
-if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handlers/global_menu_handler.php')){
-    require_once($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handlers/global_menu_handler.php');
+if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handlers/GlobalMenuHandler.php')){
+    require_once($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/handlers/GlobalMenuHandler.php');
 }
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/include/agents/users_count_agent.php')){
