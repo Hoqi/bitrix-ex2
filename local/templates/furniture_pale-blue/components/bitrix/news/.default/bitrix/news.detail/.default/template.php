@@ -1,6 +1,5 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
-CJSCore::Init(array("jquery"));
-?>
+<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
+
 <div class="news-detail">
 	<?if($arParams["DISPLAY_PICTURE"]!="N" && is_array($arResult["DETAIL_PICTURE"])):?>
 	<?saadsad?>
@@ -11,7 +10,12 @@ CJSCore::Init(array("jquery"));
 	<?endif;?>
 	<?if($arParams["DISPLAY_NAME"]!="N" && $arResult["NAME"]):?>
 		<h3><?=$arResult["NAME"]?></h3>
-		<?require_once("report.php");?>
+		<a href="?ajax=<?=$arParams["AJAX_REPORT"]?>&id=<?=$arResult["ID"]?>" id="report" 
+			<? if ($arParams["AJAX_REPORT"] == "Y"): ?> onclick="return false;"<?endif;?>>Отправить жалобу
+		</a>
+		<span id="user-text">
+			
+		</span>
 	<?endif;?>
 	<div class="news-detail">
 	<?if($arParams["DISPLAY_PREVIEW_TEXT"]!="N" && $arResult["FIELDS"]["PREVIEW_TEXT"]):?>
@@ -43,19 +47,10 @@ CJSCore::Init(array("jquery"));
 		<br />
 	<?endforeach;?>
 	<?if ($arParams["AJAX_REPORT"] == "Y"):?>
-	<script>
-		$(document).ready(function() {
-			
-			$('#report').click(function() {
-				$.get($('#report').attr("href"),function (data) {
-					$('#user-text').text(`Спасибо, ваше мнение учтено : №${data}`);
-					console.log(data);
-				}).fail(err => {
-					$('#user-text').text("Неудачная попытка");
-				})
-			})
-		})
- 	</script>
+		<?$this->addExternalJS($this->GetFolder()."/js/scriptAjax.js");?>
+	<?else:?>
+		<?$this->addExternalJS($this->GetFolder()."/js/script.js");?>
 	<?endif;?>
+	
 	</div>
 </div>
