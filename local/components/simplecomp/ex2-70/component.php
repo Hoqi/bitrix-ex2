@@ -75,31 +75,22 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arP
 	}
 	$sectionIdColumn = array_column($arSections,"ID");
 
-	/* NEWS SELECT */
-	$arSelect = array(
-		"ID",
-		"NAME",
-		"DATE_ACTIVE_FROM",
-	);
+	/* Необходимо для отбора только тех новостей, на которые ссылаются разделы 
+	   Сделано для нормального отображения постраничной навигации, т.к. в дальнейшем
+	   добавились новости к которым не привязаны разделы товаров из - за этого постраничная
+	   навигации вела на пустые страницы
+	*/
 
-	$arFilter = array(
-		"IBLOCK_ID" => $arParams["IBLOCK_NEWS_ID"],
-		"ACTIVE" => "Y",
-	);
-
-	$resIBlockNews = CIBlockElement::GetList(false,$arFilter,false,$arNav,$arSelect);
-
-	$arResult["NAV_STRING"] = $resIBlockNews->GetPageNavStringEx(
-		$navComponentObject,
-		$arParams["PAGER_TITLE"],
-		$arParams["PAGER_TEMPLATE"],
-		$arParams["PAGER_SHOW_ALWAYS"]
-	);
-
-	$arNews = [];
-	while ($element = $resIBlockNews->GetNext()){
-		$arNews[] = $element;
+	$sectionNewsRefColumn = array_column($arSections,"UF_NEWS_LINK");
+	$sectionNewsRefColumnUniq = [];
+	foreach ($sectionNewsRefColumn as $refRow){
+		foreach ($refRow as $refCell){
+			if (!in_array($refCell,$sectionNewsRefColumnUniq)){
+				$sectionNewsRefColumnUniq[] = $refCell;
+			}
+		}
 	}
+	
 	/* PRODUCTS SELECT */
 
 	$arSelect = array(
@@ -118,6 +109,7 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arP
 	);
 	$arFilter = array(
 		"IBLOCK_ID" => $arParams["IBLOCK_PRODUCT_ID"],
+		"IBLOCK_SECTION_ID" => $sectionIdColumn,
 	);
 	if (isset($_GET["F"])){
 		$arFilter[] = array(
@@ -161,6 +153,32 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arP
 			$arProducts[] = $element;
 		}
 	}
+	
+	/* NEWS SELECT */
+	$arSelect = array(
+		"ID",
+		"NAME",
+		"DATE_ACTIVE_FROM",
+	);
+	$arFilter = array(
+		"IBLOCK_ID" => $arParams["IBLOCK_NEWS_ID"],
+		"ACTIVE" => "Y",
+		"ID" => $sectionNewsRefColumnUniq,
+	);
+
+	$resIBlockNews = CIBlockElement::GetList(false,$arFilter,false,$arNav,$arSelect);
+
+	$arResult["NAV_STRING"] = $resIBlockNews->GetPageNavStringEx(
+		$navComponentObject,
+		$arParams["PAGER_TITLE"],
+		$arParams["PAGER_TEMPLATE"],
+		$arParams["PAGER_SHOW_ALWAYS"]
+	);
+
+	$arNews = [];
+	while ($element = $resIBlockNews->GetNext()){
+		$arNews[] = $element;
+	}
 	/* FINAL */
 	/*Эрмитаж*/
 	if($APPLICATION->GetShowIncludeAreas()){
@@ -173,7 +191,7 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arP
 		$this->addIncludeAreaIcons(CIBlock::GetComponentMenu($APPLICATION->GetPublicShowMode(),$arButtons));
 	}
 	/*!Эрмитаж*/
-	 if (count($arProduct != 0) && count($arNews != 0)){
+	 if (count($arProducts) != 0 && count($arNews) != 0){
 		$arResult["ITEMS"]= [];
 		$productCount = 0;
 	 	foreach($arNews as $news){
@@ -190,18 +208,19 @@ if($arParams["IBLOCK_PRODUCT_ID"] > 0 && $arParams["IBLOCK_NEWS_ID"] > 0 && $arP
 			 }
 	 		$resElem["PRODUCTS"] = [];
 	 		foreach ($arProducts as $product) {
-	 			if (in_array($product["IBLOCK_SECTION_ID"],$sectionsID)){
-					 $resElem["PRODUCTS"][] = $product;
-					 $productCount++;
-	 			}
+				if(in_array($product["IBLOCK_SECTION_ID"],$sectionsID)){
+				$resElem["PRODUCTS"][] = $product;
+				$productCount++;	 			
+				}
 			 }
+			if (count($resElem["PRODUCTS"]) > 0){
 			$arResult["ITEMS"][] = $resElem;
-		 }
+			}
+		}
 		$arResult["ELEM_COUNT"] = $productCount;
 		$this->SetResultCacheKeys(array("ELEM_COUNT","ITEMS","MIN_PRICE","MAX_PRICE"));
 		$this->IncludeComponentTemplate();
-	 }
-	 else {
+	 } else {
 		$this->AbortResultCache();
 	 }
 }
@@ -213,6 +232,7 @@ $APPLICATION->AddViewContent(
 	"minPrice",
 	"Минимальная цена: " . $arResult["MIN_PRICE"]
 );
+
 $APPLICATION->AddViewContent(
 	"maxPrice",
 	"Максимальная цена: " . $arResult["MAX_PRICE"]

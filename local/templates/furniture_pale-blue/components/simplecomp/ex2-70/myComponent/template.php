@@ -12,7 +12,7 @@
 /** @var CBitrixComponent $component */
 $frame = $this->createFrame()->begin('');
 ?>
-<?if (isset($arResult["ITEMS"])): ?>
+<?if (count($arResult["ITEMS"]) > 0): ?>
 <div class="my-component">
 <span>Метка времени:  <?echo time();?></span><br>
 <b>Фильтр </b> <a href="<?=$APPLICATION->GetCurDir()?>?F=Y"><?=$APPLICATION->GetCurDir()?>?F=Y</a>
